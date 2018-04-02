@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
+    dataBinding.enabled = true
     defaultConfig {
         applicationId "com.zdano.calculator"
         minSdkVersion 15
@@ -16,6 +17,7 @@ android {
     }
     buildTypes {
         release {
+            crunchPngs false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
