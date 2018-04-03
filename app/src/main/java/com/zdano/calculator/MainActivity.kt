@@ -12,8 +12,9 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val numberCache: MutableList<String> = arrayListOf()
-    val stackNumbers: MutableList<String> = arrayListOf()
+    var numberCache: MutableList<String> = arrayListOf()
+    var stackNumbers: MutableList<String> = arrayListOf()
+    var isEnter: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +40,6 @@ class MainActivity : AppCompatActivity() {
 
     fun updateDisplay(mainDisplayString: String){
 
-        //val fullCalculationString = makeString(operationList, " ")
-        //var fullCalculationTextView = findViewById(R.id.fullCalculationText) as TextView
-        //fullCalculationTextView.text = fullCalculationString
-
         val mainTextView = findViewById(R.id.formula) as TextView
         mainTextView.text = mainDisplayString
     }
@@ -54,19 +51,55 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun numberClick(view: View) {
+        if(isEnter) {
+            numberCache.clear()
+            isEnter = false
+        }
         val button = view as Button
-        val numberString = button.text;
+        val numberString = button.text
 
         numberCache.add(numberString.toString())
-        val text = makeString(numberCache);
+        val text = makeString(numberCache)
         updateDisplay(text)
     }
 
     fun enterClick(view: View) {
-        //val mainTextView = findViewById(R.id.formula) as TextView
-        stackNumbers.add(formula.text.toString())
-        result.text = result.text.toString().plus("\n").plus(stackNumbers.last())
-        //mainTextView.text = ""
-        //numberCache.clear()
+        isEnter = true
+        if(formula.text.toString().length > 0) {
+            stackNumbers.add(formula.text.toString())
+            //result.text = result.text.toString().plus("\n").plus(stackNumbers.last())
+            result.text = makeString(stackNumbers, "\n")
+            //mainTextView.text = ""
+            //numberCache.clear()
+        }
+    }
+
+    fun clearClick(view: View) {
+        numberCache.clear()
+        updateDisplay("")
+    }
+
+    fun dropClick(view: View) {
+        if (!stackNumbers.isEmpty()) {
+            val item =  stackNumbers.count() - 1
+            stackNumbers.removeAt(item)
+        }
+        result.text = makeString(stackNumbers, "\n")
+    }
+
+    fun swapClick(view: View) {
+        if(stackNumbers.size != 0 && numberCache.size != 0) {
+            var tmp: String
+            tmp = makeString(numberCache)
+            numberCache.clear()
+            val item =  stackNumbers.count() - 1
+            for(let in stackNumbers[item])
+                numberCache.add(let.toString())
+            stackNumbers.removeAt(item)
+            stackNumbers.add(item, tmp)
+            result.text = makeString(stackNumbers, "\n")
+            val text = makeString(numberCache)
+            updateDisplay(text)
+        }
     }
 }
