@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import android.graphics.Color.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,12 +31,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.menuRed -> {
+                item.isChecked = !item.isChecked
+                layoutView.setBackgroundColor(RED)
+                return true
+            }
+            R.id.menuGreen -> {
+                item.isChecked = !item.isChecked
+                layoutView.setBackgroundColor(GREEN)
+                return true
+            }
+            R.id.menuYellow -> {
+                item.isChecked = !item.isChecked
+                layoutView.setBackgroundColor(YELLOW)
+                return true
+            }
+            R.id.menuBlue -> {
+                item.isChecked = !item.isChecked
+                layoutView.setBackgroundColor(BLUE)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
