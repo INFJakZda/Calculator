@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     var numberCache: MutableList<String> = arrayListOf()
     var stackNumbers: MutableList<String> = arrayListOf()
     var isEnter: Boolean = false
+    var isCompute: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +55,12 @@ class MainActivity : AppCompatActivity() {
         if(isEnter) {
             numberCache.clear()
             isEnter = false
+        }
+        if(isCompute) {
+            enterClick(view)
+            numberCache.clear()
+            isEnter = false
+            isCompute = false
         }
         val button = view as Button
         val numberString = button.text
@@ -101,5 +108,55 @@ class MainActivity : AppCompatActivity() {
             val text = makeString(numberCache)
             updateDisplay(text)
         }
+    }
+
+    fun compute(fstArg: Double, secArg: Double, sign: String): Double {
+        var currentNumber: Double
+        currentNumber = fstArg
+        when (sign) {
+            "-" -> currentNumber -= secArg
+            "÷" -> currentNumber /= secArg
+            "*" -> currentNumber *= secArg
+            "+" -> currentNumber += secArg
+            "^" -> currentNumber = Math.pow(currentNumber, secArg)
+            "√" -> currentNumber = Math.pow(currentNumber, 1 / secArg)
+        }
+        return currentNumber
+    }
+
+    fun signClick(view: View) {
+        if(stackNumbers.size != 0 && numberCache.size != 0) {
+            var button = view as Button
+            var sign: String
+            sign = button.text.toString()
+            var secArg: Double
+            var fstArg: Double
+            secArg = makeString(numberCache).toDouble()
+            val item =  stackNumbers.count() - 1
+            fstArg = stackNumbers[item].toDouble()
+            stackNumbers.removeAt(item)
+            var res: String
+            res = compute(fstArg, secArg, sign).toString()
+            numberCache.clear()
+            for(let in res) {
+                numberCache.add(let.toString())
+            }
+            result.text = makeString(stackNumbers, "\n")
+            val text = makeString(numberCache)
+            updateDisplay(text)
+            isCompute = true
+        }
+    }
+
+    fun plusMinusClick(view: View) {
+        if(numberCache.size != 0) {
+            if (numberCache[0].equals("-")) {
+                numberCache.remove("-")
+            } else {
+                numberCache.add(0, "-")
+            }
+        }
+        val text = makeString(numberCache)
+        updateDisplay(text)
     }
 }

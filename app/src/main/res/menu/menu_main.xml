@@ -1,10 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.zdano.calculator.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+    tools:context="com.zdano.menuexample.MainActivity">
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/menuRed"
+            android:title="Red" />
+        <item
+            android:id="@+id/menuGreen"
+            android:title="Green" />
+        <item
+            android:id="@+id/menuYellow"
+            android:title="Yellow" />
+        <item
+            android:id="@+id/menuBlue"
+            android:title="Blue" />
+    </group>
 </menu>

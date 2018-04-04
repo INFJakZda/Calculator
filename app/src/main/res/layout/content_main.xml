@@ -17,7 +17,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="bottom|right|center_vertical"
             android:maxLines="5"
-            android:textSize="@dimen/display_text_size"
+            android:textSize="20sp"
             tools:text="0" />
 
         <TextView
@@ -143,6 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="signClick"
                 android:text="-" />
 
             <Button
@@ -151,6 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="signClick"
                 android:text="+" />
 
             <Button
@@ -159,6 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="signClick"
                 android:text="^" />
 
         </LinearLayout>
@@ -202,6 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="signClick"
                 android:text="÷" />
 
             <Button
@@ -210,6 +214,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="signClick"
                 android:text="*" />
 
             <Button
@@ -218,6 +223,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="signClick"
                 android:text="√" />
 
         </LinearLayout>
@@ -243,7 +249,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="."/>
+                android:onClick="numberClick"
+                android:text="." />
 
             <Button
                 android:id="@+id/btn_enter"
@@ -260,6 +267,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="plusMinusClick"
                 android:text="+/-" />
 
         </LinearLayout>
