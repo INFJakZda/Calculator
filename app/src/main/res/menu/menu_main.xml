@@ -4,6 +4,9 @@
     tools:context="com.zdano.menuexample.MainActivity">
     <group android:checkableBehavior="single" >
         <item
+            android:id="@+id/menuWhite"
+            android:title="White" />
+        <item
             android:id="@+id/menuRed"
             android:title="Red" />
         <item

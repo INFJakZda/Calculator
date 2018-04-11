@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     var stackNumbers: MutableList<String> = arrayListOf()
     var isEnter: Boolean = false
     var isCompute: Boolean = false
+    var bckColor: Int = WHITE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,28 +33,68 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menuWhite -> {
+                item.isChecked = !item.isChecked
+                bckColor = WHITE
+                layoutView.setBackgroundColor(bckColor)
+                return true
+            }
             R.id.menuRed -> {
                 item.isChecked = !item.isChecked
-                layoutView.setBackgroundColor(RED)
+                bckColor = RED
+                layoutView.setBackgroundColor(bckColor)
                 return true
             }
             R.id.menuGreen -> {
                 item.isChecked = !item.isChecked
-                layoutView.setBackgroundColor(GREEN)
+                bckColor = GREEN
+                layoutView.setBackgroundColor(bckColor)
                 return true
             }
             R.id.menuYellow -> {
                 item.isChecked = !item.isChecked
-                layoutView.setBackgroundColor(YELLOW)
+                bckColor = YELLOW
+                layoutView.setBackgroundColor(bckColor)
                 return true
             }
             R.id.menuBlue -> {
                 item.isChecked = !item.isChecked
-                layoutView.setBackgroundColor(BLUE)
+                bckColor = BLUE
+                layoutView.setBackgroundColor(bckColor)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putStringArrayList("formula", ArrayList(numberCache))
+        savedInstanceState.putStringArrayList("stack", ArrayList(stackNumbers))
+        savedInstanceState.putBoolean("enter", isEnter)
+        savedInstanceState.putBoolean("compute", isCompute)
+        savedInstanceState.putInt("color", bckColor)
+        super.onSaveInstanceState(savedInstanceState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+
+        super.onRestoreInstanceState(savedInstanceState)
+
+        numberCache = savedInstanceState.getStringArrayList("formula")
+        updateDisplay(makeString(numberCache))
+
+        stackNumbers = savedInstanceState.getStringArrayList("stack")
+        result.text = makeString(stackNumbers, "\n")
+
+        isEnter = savedInstanceState.getBoolean("enter")
+        isCompute = savedInstanceState.getBoolean("compute")
+
+        bckColor = savedInstanceState.getInt("color")
+        layoutView.setBackgroundColor(bckColor)
     }
 
     fun updateDisplay(mainDisplayString: String){
@@ -91,10 +132,7 @@ class MainActivity : AppCompatActivity() {
         isEnter = true
         if(formula.text.toString().length > 0) {
             stackNumbers.add(formula.text.toString())
-            //result.text = result.text.toString().plus("\n").plus(stackNumbers.last())
             result.text = makeString(stackNumbers, "\n")
-            //mainTextView.text = ""
-            //numberCache.clear()
         }
     }
 
@@ -162,6 +200,7 @@ class MainActivity : AppCompatActivity() {
             val text = makeString(numberCache)
             updateDisplay(text)
             isCompute = true
+            isEnter = false
         }
     }
 
